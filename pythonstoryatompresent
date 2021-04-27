@@ -1,0 +1,355 @@
+import pyautogui
+global weaponDamage
+import random
+from time import sleep
+import time
+import sys
+weaponDamage = 50
+myInventory = []
+Player_shield = 0
+incidents = ['You trip and fall headlong into a hole and lose some health. More paths are revealed', '''You activate a trip wire. You hear a faint whistling noise which culminates
+into a sharp pain in your chest. You look down to see an arrow sticking out of your chest. You lose some health''', '''You are greeted by a metal obstacle course. You skillfully navigate
+it but trip on the last one. A metal battering ram knocks you aside. You take some damage''', '''You encounter an underground lake. You begin to wade through. You feel something nip at
+feet. You lift your leg to reveal pirannhas latched on to your feet. You kick them off and swim to the shore. You take some damage.''']
+
+print("The Legend of the Dark Warrior")
+print("by Anish Goel")
+print("==============================================")
+time.sleep(3)
+print('''Welcome to the Realm of Deceit. Once upon a time, long long ago, a baby named Noah was born.
+Noah was no ordinary baby. He was destined for greatness. He grew up to be a brave, strong man.
+The King himself went town to town in search for worthy men to join his army.
+After hearing about Noah's feats and triumphs, he became obsessed with finding him.
+The King believed that Noah was the key to winning the war
+against the orks. Finally The Kings found Noah...''')
+time.sleep(12)
+print("==============================================")
+print("The King has found you! He offers unimaginable riches and the opportunity to save your family's farm. What will you do?")
+time.sleep(4)
+choice_1 = pyautogui.confirm(text ="""Will you hide with your mother and wait for him to pass
+\nOR \nleave your mother and join the King's army\n""", title = 'Enter your choice', buttons = ["hide with your mother", "join the king's army"])
+print("==============================================")
+if choice_1 == 'hide with your mother':
+    print('''You are captured and taken by the orks, once there, you discover that the orks are actually kind and civil.
+The orks enlighten you on the reasons and cause of the war. You realize the intentions of the King and began to despise him with all your heart.
+The orks train and prepare you for the war. You become close to the orks and they elect you as the new ork king.
+You fight the war and become a paragon in the art of swordsmanship. You slay the king's soldiers by the dozen.
+You win the war and bring glory upon your fellow ork friends. The King, who was thrown in a fit of rage, resulted to employing a warlock to kill you.
+You must now defeat the warlock!''')
+    print("==============================================")
+    time.sleep(14)
+    weaponChoice = pyautogui.confirm(text = """Choose your weapon:
+The sword does 100 damage per hit, however it lays near the warlock. The bow on the other hand lays right next to you and does 50 damage per hit
+The warlock is sleeping and there is a 50% chance that he might wake if you do happen to go for the sword! """, title ='Choose your weapon.', buttons = ['sword', 'bow and arrow'])
+    chanceWake = random.randint(1,100)
+    if weaponChoice == 'sword':
+        weaponDamage = 100
+        myInventory.append('sword')
+        if chanceWake >= 50:
+            print('''The Warlock has woken up!, he smiles with glee and blasts you with his mystic powers! CRITICAL HIT! The warlock does 500 damage to you!
+You grab the sword and scamper out of the cave as fast as you can! NOW FIGHT!''')
+            #print("==============================================")
+            sleep(4)
+        else:
+            print('Congratulations, you managed to escape alive! NOW FIGHT!')
+            sleep(3)
+    if weaponChoice == 'bow and arrow':
+        weaponDamage = 50
+        myInventory.append('bow and arrow')
+        print('You have chosen the bow and arrow! Now defeat the warlock!')
+        #print("==============================================")
+elif choice_1 == "join the king's army":
+    print('''You are taken to the kingdom where you are rigourously trained. You become the orks most formidable opponent and slay them by the dozens.
+You quickly rise in rank and become a general. You command the armies with the skill of a well-seasoned warrior and win the war. Your mother becomes a successful
+and influential women. However, believing you to be worse then the king, the orks hire assassins to kill you. An arrow strikes the axel of your royal carriage and it
+slows to a stop. You hear your royal gaurd fall to the ground one by one. You climb out to see a legion of assassins murdering your colleagues in cold blood.
+This makes you enranged. You must now defeat the assassins!''')
+    print("==============================================")
+    time.sleep(15)
+    weaponChoice2 = pyautogui.confirm(text = """Choose your weapon: A 4 foot iron chain or one of the assassin's swords. The chain is easily accessable but only does 50 damage.
+On the other hand, the sword does 100 damage but is gaurded by the assassins. The assassins can't see you. If you do happen to attempt to retrieve the sword. There is a 50%
+the assassins will see you.""", title ='Choose your weapon.', buttons = ['sword', 'chain'])
+    chanceSee = random.randint(1,100)
+    if weaponChoice2 == 'sword':
+        weaponDamage = 100
+        myInventory.append("assassin's sword")
+        print(f'This is your inventory = {myInventory}')
+        print("==============================================")
+        if chanceSee >= 50:
+            print('''The assassins have seen you! They look at you mercilessly and lunge at you with their swords! CRITICAL HIT! The assassins do 500 damage to you!
+You grab the sword and assume your fighting stance! NOW FIGHT!''')
+            print("==============================================")
+            time.sleep(4)
+        else:
+            print('Congratulations, you managed to escape alive! NOW FIGHT!')
+            time.sleep(5)
+        if weaponChoice2 == 'chain':
+            weaponDamage = 50
+            myInventory.append('chain')
+            print(f'This is your inventory = {myInventory}')
+#print("==============================================")
+num = random.randint(1,400)
+guess = pyautogui.prompt(text = 'Guess a number:', title = 'FIGHT YOUR OPPONENT')
+guess = int(guess)
+Opponent_health = 1000
+Player_health = 1000
+if choice_1 == "hide with your mother":
+    if weaponChoice == 'sword':
+        if chanceWake >= 50:
+            Player_health = 500
+elif choice_1 == "join the king's army":
+    if weaponChoice2 == 'sword':
+        if chanceSee >= 50:
+            Player_health = 500
+while Opponent_health > 0 and Player_health > 0:
+    num = random.randint(1,400)
+    damage = random.randint(1,200)
+    if (guess > num + 20):
+        print(f"""Your guess was too high! You do {weaponDamage} damage to your opponent(s)!
+Your opponent(s) does {damage} damage to you!""")
+        print("==============================================")
+        sleep(2)
+        Opponent_health -= num
+        Player_health -= damage
+        print(f'Opponent health = {Opponent_health}')
+        print(f'Your health = {Player_health}')
+        num = random.randint(1,400)
+        damage = random.randint(1,200)
+        guess = pyautogui.prompt(text = 'Guess a number 1 - 400:', title = 'FIGHT YOUR OPPONENT')
+        guess = int(guess)
+    elif (guess < num - 20):
+        print(f"""Your guess was too low! You do {weaponDamage} damage to your opponent(s)!
+Your opponent(s) does {damage} damage to you!""")
+        #print("==============================================")
+        sleep(2)
+        Opponent_health = Opponent_health - num
+        Player_health -= damage
+        print(f'Opponent health = {Opponent_health}')
+        print(f'Your health = {Player_health}')
+        print("==============================================")
+        sleep(2)
+        num = random.randint(1,400)
+        damage = random.randint(1,200)
+        guess = pyautogui.prompt(text = 'Guess a number 1 - 400:', title = 'FIGHT YOUR OPPONENT')
+        guess = int(guess)
+    else:
+        print(f'''Correct! you do {weaponDamage} + {num} damage your opponent(s)!
+Your opponent(s) does {damage} damage to you!''')
+        print("==============================================")
+        sleep(2)
+        Opponent_health -= (num + guess)
+        Player_health -= damage
+        print(f'Opponent health = {Opponent_health}')
+        print(f'Your health = {Player_health}')
+        num = random.randint(1,400)
+        damage = random.randint(1,200)
+        guess = pyautogui.prompt(text = 'Guess a number 1 - 400:', title = 'FIGHT YOUR OPPONENT')
+        guess = int(guess)
+
+if choice_1 == "hide with your mother":
+    if Opponent_health <= 0:
+        print("""Congratulations!, You have defeated the warlock!, infuriated at the king's attempt. You began planning to infiltrate the palace
+to make an attempt of your own! However you need to prepare first!""")
+        print("==============================================")
+        sleep(2)
+    if Player_health <= 0:
+        print('''Unfortunately, the warlock has defeated you in battle. GAME OVER!''')
+        sys.exit()
+        sleep(5)
+if choice_1 == "join the king's army":
+    if Opponent_health <= 0:
+        print("""Congratulations!, You have defeated the assassins!, infuriated at the orks' attempt, you began planning to infilitrate the ork's kingdom
+to stop this nonsense once and for all! However you need to prepare first!""")
+        print("==============================================")
+        sleep(2)
+    if Player_health <= 0:
+        print('''Unfortunately, the assassins have defeated you in battle. GAME OVER!''')
+        sys.exit()
+        sleep(5)
+supplies = pyautogui.confirm(text = 'Choose what you want to carry! You only have 3 inventory slots, so choose carefully!', title = 'CHOOSE YOUR SUPPLIES!', buttons = ['bandages', 'shield potion'])
+if (supplies == 'bandages'):
+    myInventory.append ('bandages')
+    print(f'This is your inventory = {myInventory}')
+    print("==============================================")
+    sleep(2)
+elif (supplies == 'shield potion'):
+    myInventory.append('shield potion')
+    print(f'This is your inventory = {myInventory}')
+    print("==============================================")
+    sleep(2)
+supplies2 = pyautogui.confirm(text = 'Choose what you want to carry! You only have 3 inventory slots, so choose carefully!', title = 'CHOOSE YOUR SUPPLIES!', buttons = ['future orb',
+'''300 gilds(currency)'''])
+if (supplies2 == 'future orb'):
+    myInventory.append('future orb')
+    print(f'This is your inventory = {myInventory}')
+    print("==============================================")
+    sleep(2)
+if (supplies == '300 gilds(currency)'):
+    myInventory.append('300 gilds(currency)')
+    print(f'This is your inventory = {myInventory}')
+    print("==============================================")
+    sleep(2)
+if Player_health <= 0:
+    print('GAME OVER')
+    sys.exit()
+supplies3 = pyautogui.confirm(text = 'Choose what you want to carry! You only have 3 inventory slots, so choose carefully!', title = 'CHOOSE YOUR SUPPLIES!', buttons = ['1x use horn', '''
+1 med kit'''])
+if (supplies3 == '1x use horn'):
+    myInventory.append('1x use horn')
+    print(f'This is your inventory = {myInventory}')
+    print("==============================================")
+    sleep(2)
+if (supplies3 == '1 med kit'):
+    myInventory.append('1 med kit')
+    print(f'This is your inventory = {myInventory}')
+    print("==============================================")
+    sleep(2)
+if choice_1 == "hide with your mother":
+    print('''Now that you are prepared, the time has come to embark on your journey! You leave your humble abode and trek to the king's palace! Along the way you encounter
+a maze which you then realize is used to enforce the borders of the palace! You reluctantly enter the maze. You have to choose between three different directions. Which one will it be?''')
+if choice_1 == "join the king's army":
+    print('''Now that you are prepared, the time has come to embark on your journey! You leave the palace to trek to the ork's kingdom! Along the way you encounter a maze
+and realize the maze is used to enforce the borders of the ork kingdom! You have to choose between three different directions. Which one will it be?''')
+directionList =  ['left', 'center', 'right']
+direction = pyautogui.confirm(text = 'Choose from the following paths', title = '', buttons = directionList)
+if  Player_health <= 0:
+    print('Your injuries have lead to your death. GAME OVER')
+    sys.exit()
+if direction == random.choice(directionList):
+    print(f'You proceed down the {direction} path without incident')
+    print("==============================================")
+    print(f'Player health = {Player_health}')
+    useItem = pyautogui.confirm(text = f'''Would you like to use any of the following items from your inventory?
+    {myInventory}''', title = '', buttons = ['yes','no'])
+    if useItem == 'yes':
+        whichItem = pyautogui.confirm(text = 'Which item would you like to use', title = '', buttons = myInventory)
+    sleep(3)
+    direction = pyautogui.confirm(text = 'Choose from the following paths', title = '', buttons = directionList)
+else:
+    incident = random.choice(incidents)
+    incidents.remove(incident)
+    print(incident)
+    print("==============================================")
+    Player_health -= 50
+    print(f'Player health = {Player_health}')
+    useItem = pyautogui.confirm(text = f'''Would you like to use any of the following items from your inventory?
+    {myInventory}''', title = '', buttons = ['yes','no'])
+    if useItem == 'yes':
+        whichItem = pyautogui.confirm(text = 'Which item would you like to use', title = '', buttons = myInventory)
+    sleep(5)
+    direction = pyautogui.confirm(text = 'Choose from the following paths', title = '', buttons = directionList)
+if  Player_health <= 0:
+    print('Your injuries have lead to your death. GAME OVER')
+    sys.exit()
+if direction == random.choice(directionList):
+    print(f'You proceed down the {direction} path without incident')
+    print("==============================================")
+    print(f'Player health = {Player_health}')
+    useItem = pyautogui.confirm(text = f'''Would you like to use any of the following items from your inventory?
+    {myInventory}''', title = '', buttons = ['yes','no'])
+    if useItem == 'yes':
+        whichItem = pyautogui.confirm(text = 'Which item would you like to use', title = '', buttons = myInventory)
+    sleep(3)
+    direction = pyautogui.confirm(text = 'Choose from the following paths', title = '', buttons = directionList)
+else:
+    incident = random.choice(incidents)
+    incidents.remove(incident)
+    print(incident)
+    print("==============================================")
+    Player_health -= 50
+    print(f'Player health = {Player_health}')
+    useItem = pyautogui.confirm(text = f'''Would you like to use any of the following items from your inventory?
+        {myInventory}''', title = '', buttons = ['yes','no'])
+    if useItem == 'yes':
+            whichItem = pyautogui.confirm(text = 'Which item would you like to use', title = '', buttons = myInventory)
+    sleep(5)
+    direction = pyautogui.confirm(text = 'Choose from the following paths', title = '', buttons = directionList)
+if  Player_health <= 0:
+    print('Your injuries have lead to your death. GAME OVER')
+    sys.exit()
+if direction == random.choice(directionList):
+    print(f'You proceed down the {direction} path without incident')
+    print("==============================================")
+    print(f'Player health = {Player_health}')
+    useItem = pyautogui.confirm(text = f'''Would you like to use any of the following items from your inventory?
+    {myInventory}''', title = '', buttons = ['yes','no'])
+    if useItem == 'yes':
+        whichItem = pyautogui.confirm(text = 'Which item would you like to use', title = '', buttons = myInventory)
+    sleep(3)
+    direction = pyautogui.confirm(text = 'Choose from the following paths', title = '', buttons = directionList)
+else:
+    incident = random.choice(incidents)
+    incidents.remove(incident)
+    print(incident)
+    print("==============================================")
+    Player_health -= 50
+    print(f'Player health = {Player_health}')
+    useItem = pyautogui.confirm(text = f'''Would you like to use any of the following items from your inventory?
+    {myInventory}''', title = '', buttons = ['yes','no'])
+    if useItem == 'yes':
+        whichItem = pyautogui.confirm(text = 'Which item would you like to use', title = '', buttons = myInventory)
+    sleep(5)
+    direction = pyautogui.confirm(text = 'Choose from the following paths', title = '', buttons = directionList)
+if  Player_health <= 0:
+    print('Your injuries have lead to your death. GAME OVER')
+    sys.exit()
+if direction == random.choice(directionList):
+    print(f'You proceed down the {direction} path without incident')
+    print("==============================================")
+    print(f'Player health = {Player_health}')
+    useItem = pyautogui.confirm(text = f'''Would you like to use any of the following items from your inventory?
+    {myInventory}''', title = '', buttons = ['yes','no'])
+    if useItem == 'yes':
+        whichItem = pyautogui.confirm(text = 'Which item would you like to use', title = '', buttons = myInventory)
+    sleep(3)
+    direction = pyautogui.confirm(text = 'Choose from the following paths', title = '', buttons = directionList)
+else:
+    incident = random.choice(incidents)
+    incidents.remove(incident)
+    print(incident)
+    print("==============================================")
+    Player_health -= 50
+    print(f'Player health = {Player_health}')
+    useItem = pyautogui.confirm(text = f'''Would you like to use any of the following items from your inventory?
+    {myInventory}''', title = '', buttons = ['yes','no'])
+    if useItem == 'yes':
+        whichItem = pyautogui.confirm(text = 'Which item would you like to use', title = '', buttons = myInventory)
+        if whichItem == 'bandages':
+            int(Player_health) + 75
+            myInventory.remove('bandages')
+        if whichItem == 'shield potion':
+            int(Player_shield) + 75
+            myInventory.remove('shield potion')
+        if whichItem == ''
+
+    sleep(5)
+    direction = pyautogui.confirm(text = 'Choose from the following paths', title = '', buttons = directionList)
+if Player_health <=0:
+    print('Your injuries have led to your death. GAME OVER')
+if choice_1 == "hide with your mother":
+    if  Player_health >= 0:
+        print("""Congratulations you have made it out of the maze alive. Now all that's left is to kill the king and finish this once and for all
+You storm the palace. All of the guards fleet in terror knowing how powerful you are. You enter the king's private chamber and seized the king. You manage to
+defeat the king but notice that he doesn't attempt to resist. This confuses you but you decide to dismiss it. Now you are king! Congratulations Noah Farrow!
+You invite all your ork friends to the palace for a joyful reunion. In the midst of the joyous occasion,a banker visits the palace.
+He informs you that all of the king's treasure is now yours. This doesn't make any sense as it is custom in the Realm of Deciet for the king's treasure
+to be lost when the king dies. When you ask, the banker says he is just following the king's orders. He asks you if you want to see his will""")
+        sleep(9)
+        will = pyautogui.confirm(text = '''Do you want to see the king's will?''', title = 'will', buttons = ['yes','no'])
+        if will == 'no':
+            print('It seems you care for happy endings, well GAME OVER')
+            sys.exit()
+        if will == "yes":
+            print('The will says: Give all my treasure to Noah Farrow, my son')
+            sleep(3)
+            print('GAME OVER')
+if choice_1 == "join the king's army":
+    if Player_health >= 0:
+        print('''Congratulations you have made it out of the maze alive. Now all that's left is to kill the ork king and finish this once and for all.
+You sneak into the kingdom as there are too many guards. You enter the ork king's private chambers and overhear an important conversation.
+You are enlightened on the reality of the situation and the real cause for the war. You feel guilty when you realize the king's true intentions and your role in it.
+Enraged, you abandon your original plan and storm the palace. You face the king and seize him. You tell him all you have learned and threaten him.
+But the king simply laughs. This makes you even angrier. You duel and defeat the king. In his last moments, the king says
+"goodbye son"''')
+    sleep(3)
+    print('GAME OVER')
